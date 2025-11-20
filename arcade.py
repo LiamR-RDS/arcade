@@ -1,5 +1,5 @@
 import sys
-from games import coin_flip, rock_paper_scissors
+from games import coin_flip, rock_paper_scissors, higher_or_lower
 
 # TODO: Have this script act as a menu to start other games
 
@@ -16,3 +16,5 @@ while True:
             coin_flip.play()
         if cmd == "rock paper scissors" or cmd == "rps":
             rock_paper_scissors.play()
+        if cmd == "higher or lower" or cmd == "higher/lower":
+            higher_or_lower.play()

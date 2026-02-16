@@ -1,41 +1,38 @@
-# A game in which the player guesses a random number.
 from random import randint
 
+# fixed range
+MIN_INT = 1
+MAX_INT = 100
 
+# main game loop
 def play():
+    # variables
+    guesses = 0
+    number = randint(MIN_INT, MAX_INT)
 
-    MIN_INT : int = 1
-    MAX_INT : int = 100
+    print('Welcome to Higher / Lower! (type "quit" to exit)\n')
 
-    guesses : int = 0 # Number of guesses the player has made
-    num : int # Random number
-
-    print("Welcome to Higher/Lower! Type \"quit\" or \"exit\" to quit.\n")
-
-    # Main Loop
     while True:
-
-        if guesses == 0: # Generate new number if the game just started.
-            num = randint(MIN_INT,MAX_INT)
-
         guess = input(f"Guess a number ({MIN_INT}-{MAX_INT})\n> ")
 
-        if guess == "quit" or guess == "exit":
+        if guess in {"quit", "exit"}:
             return
-        
+
         if not guess.isdigit():
-            print("Invalid input! Please enter a number or \"quit\" to quit.")
+            print("Please enter a valid number.")
             continue
 
         guesses += 1
-        if int(guess) < num:
-            print("Higher!")
-        if int(guess) > num:
-            print("Lower!")
-        if int(guess) == num:
-            print(f"Correct! You took {guesses} guesses.")
-            guesses = 0
+        value = int(guess)
 
+        if value < number:
+            print("Higher!")
+        elif value > number:
+            print("Lower!")
+        else:
+            print(f"Correct! You took {guesses} guesses.\n")
+            guesses = 0
+            number = randint(MIN_INT, MAX_INT)
 
 if __name__ == "__main__":
     play()

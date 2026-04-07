@@ -1,9 +1,9 @@
 import sys
-from games import coin_flip, rock_paper_scissors, higher_or_lower
+from games import coin_flip, rock_paper_scissors, higher_or_lower, hangman
 
 # TODO: Have this script act as a menu to start other games
 
-while True:
+def menu():
     # Main game loop
     print("Welcome to the arcade!\n") # Intro message
     while True:
@@ -18,3 +18,8 @@ while True:
             rock_paper_scissors.play()
         if cmd == "higher or lower" or cmd == "higher/lower":
             higher_or_lower.play()
+        if cmd == "hangman":
+            hangman.play()
+
+if __name__ == "__main__":
+    menu()

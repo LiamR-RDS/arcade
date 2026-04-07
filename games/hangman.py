@@ -1,21 +1,23 @@
 # Hangman game
 
 import requests
+import random
 
 # Config
 MAX_MISTAKES = 6
 
 
-def fetch_random_word() -> str | None:
-    """Fetch a random word from the API."""
+def fetch_random_word() -> str:
+    """Fetch a random word from the API or return a fallback."""
     try:
-        response = requests.get("https://random-word-api.herokuapp.com/word")
+        response = requests.get("https://random-word-api.herokuapp.com/word", timeout=5)
         response.raise_for_status()
         words: list[str] = response.json()
         return words[0]
     except Exception as e:
-        print(f"Error fetching word from API: {e}")
-        return None
+        print(f"Error fetching word from API (possibly CORS): {e}")
+        print("Using local fallback word.")
+        return random.choice(["python", "arcade", "browser", "computer", "programming"])
 
 
 def reveal_word(word, guessed):
@@ -23,10 +25,7 @@ def reveal_word(word, guessed):
 
 
 def play():
-    word = fetch_random_word()  # fetch a random word from API
-    if word is None:
-        print("Failed to fetch a word. Exiting...")
-        return
+    word = fetch_random_word()  # fetch a random word from API or fallback
     guessed_letters: set[str] = set()  # use a set to track letters
     cur_mistakes = 0
 
